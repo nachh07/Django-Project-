@@ -1,0 +1,7 @@
+# archivos/carpetas para ignorar comunes
+venv
+__pycache__
+db.sqlite3
+
+# archivos/carpetas ignoradas por mi
+.uncommit
