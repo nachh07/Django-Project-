@@ -39,7 +39,6 @@ def registrar_videojuego(request):
                 fecha_alta = data['fecha_alta']
                            
             videojuego = Videojuego(
-
                 titulo = data['titulo']
                 ,categoria = data['categoria']
                 ,precio = data['precio']
@@ -47,8 +46,9 @@ def registrar_videojuego(request):
                 ,fecha_alta = fecha_alta 
             )
             videojuego.save()
-            
             return redirect('catalogo')
+    else:
+        return render(request, 'layouts/registrar_videojuego.html', {'formulario' : formulario})       
 
     formulario = FormularioVideoJuego()  
     return render(request, 'layouts/registrar_videojuego.html', {'formulario' : formulario})
