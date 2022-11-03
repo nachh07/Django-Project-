@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Editar
+{% endblock title %}
+
+{% block content %}
+
+<div class="content">
+    <div class="box">
+      <h2>Editar videojuego</h2>
+      
+        <form action ={% url 'editar_videojuego' object.id %} method = "POST">{% csrf_token %}
+            {{form}}
+            <input type="submit" value="registrar">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

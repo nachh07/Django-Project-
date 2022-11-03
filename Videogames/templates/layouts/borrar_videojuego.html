@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Editar
+{% endblock title %}
+
+{% block content %}
+
+<div class="content">
+    <div class="box">
+      <h2>Editar videojuego</h2>
+      
+        <form action ={% url 'borrar_videojuego' object.id %} method = "POST">{% csrf_token %}
+            <p> ¿Desea eliminar el objeto: {{object}}</p>
+            <input type="submit" value="Confirmar">
+            <input type="button" value="Cancelar"><a href="{% url 'catalogo' %}"></a>
+         </form>
+    </div>
+</div>
+
+{% endblock %}
