@@ -10,8 +10,8 @@ Catálogo de videojuegos
     <div class="content">
         <div class="box">
         <h3 class="title" style="text-align: center;">Catálogo de Videojuegos</h3>
-          {% if cantidad %}
-          <h4 class="title" style="text-align: center;">Se encontraron {{cantidad}} registros en la base de datos</h4>
+          {% if object_list %}
+          <h4 class="title" style="text-align: center;">Se encontraron {{object_list.count}} registros en la base de datos</h4>
           <br>
                 <table class="table table-dark table-striped">
                   <thead>
@@ -25,9 +25,9 @@ Catálogo de videojuegos
                     </tr>
                   </thead>
                   <tbody>
-                  {% for j in juego %}
+                  {% for j in object_list %}
                     <tr>
-                      <td>{{j.id}}</td>
+                      <td>{{j.id}} <a href="{% url 'editar_videojuego' j.id %}">Editar <a href="{% url 'borrar_videojuego' j.id %}"> Borrar</a> </td>
                       <td>{{j.titulo}}</td>
                       <td>{{j.categoria}}</td>
                       <td>{{j.precio}}</td>
