@@ -1,23 +1,58 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import forms
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 
-class MiFormularioDeCreacion(UserCreationForm):
+class MiFormularioDeCreacion(UserCreationForm, forms.Form):
     
-    email = forms.CharField()
-    password1 = forms.CharField(label='Contrasenia', widget=forms.PasswordInput) 
-    password2 = forms.CharField(label='Repetir Contrasenia', widget=forms.PasswordInput)
+    username = forms.CharField(
+        max_length=30,
+        required=True,
+        label = 'Nombre del usuario',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder' : 'Introduzca nombre de usuario '
+                },
+            ),
+        error_messages={
+            "unique": "El usuario existe en la base de datos."
+        }
+    )
+
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+        label = 'Nombre',
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        required=True,
+        label = 'Apellido',
+    )
+
+    email = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'placeholder' : 'Introduzca su correo '
+                }
+            )
+   )
+    
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput) 
+    password2 = forms.CharField(label='Repetir Contraseña', widget=forms.PasswordInput)
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
         help_texts = {key: '' for key in fields}
         
 class EditarPerfilFormulario(forms.Form):
-    email = forms.CharField()
-    first_name = forms.CharField(label='Nombre')
-    last_name = forms.CharField(label='Apellido')
+    username = forms.CharField(label='Usuario',required=False) 
+    first_name = forms.CharField(label='Nombre',required=False)
+    last_name = forms.CharField(label='Apellido',required=False)
+    email = forms.CharField(label='Email',required=False)
+    descripcion = forms.CharField(label='Descripcion',required=False)
     avatar = forms.ImageField(required=False)
     
 
