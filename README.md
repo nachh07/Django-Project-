@@ -1,4 +1,4 @@
-<h1>Pasos para levantar el proyecto.</h1> 
+<h1>Pasos para arrancar el proyecto.</h1> 
 
 1 - Clonar el proyecto o descargar archivo comprimido.
 
@@ -15,3 +15,13 @@
 4 - Iniciar el servidor con el comando python manage.py runserver.
 
 5 - Una vez arrancado el servidor, ingresar al siguiente link: http://localhost:8000/
+
+6 - Registrarse para poder ingresar.
+
+6.1 - Los datos pueden modificarse más adelante, y agregar una descripción y avatar.
+
+7 - Registrar videojuegos.
+
+8 - Se puede ver el catálogo con los videojuegos creados o buscar alguno ya creado.
+
+9 - En el apartado Acerca de Nosotros podrás saber más sobre los integrantes del equipo.
