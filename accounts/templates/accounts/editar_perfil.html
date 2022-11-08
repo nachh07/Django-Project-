@@ -9,7 +9,6 @@ Editar perfil
 <div class="content">
     <div class="box">
       <h2>Editar perfil</h2>
-      
         <form action = {% url 'editar_perfil' %} method = "POST" enctype="multipart/form-data">{% csrf_token %}
             {{formulario}}
             <input type="submit" value="Modificar datos">

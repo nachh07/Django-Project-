@@ -11,6 +11,9 @@ from django.contrib.auth.decorators import login_required
 def index(request): 
     return render(request, 'layouts/index.html', {'title' : 'inicio'})
 
+def about(request):
+    return render(request, 'layouts/about.html')
+
 def ver_catalogo(request): 
 
     cant_registros = Videojuego.objects.all().count()
@@ -80,7 +83,6 @@ def editar_videojuego(request, id):
         else:
             return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario})
 
-    # hay que ver como hacer para pasarle los campos necesarios
     formulario = FormularioVideoJuego(
         initial={
             'titulo' : videojuego.titulo,
@@ -100,28 +102,15 @@ def borrar_videojuego(request, id):
     return redirect('catalogo')    
 
 
-class ListarVideojuegos(ListView): 
-
-    model = Videojuego
-    template_name = 'layouts/ver_catalogo.html'
-
-class RegistrarVideojuego(LoginRequiredMixin, CreateView): 
-    # videojuegos/catalogo/
-    model = Videojuego
-    success_url = '/videojuegos/'
-    template_name = 'layouts/registrar_videojuego.html'
-    fields = ['titulo', 'categoria', 'precio', 'espacio_en_disco', 'fecha_alta']
-
 class EditarVideojuego(LoginRequiredMixin, UpdateView):
 
     model = Videojuego
-    success_url = '/videojuegos/'
+    success_url = '/videojuegos/catalogo'
     template_name = 'layouts/editar_videojuego.html'
     fields = ['titulo', 'categoria', 'precio', 'espacio_en_disco', 'fecha_alta']
 
 class BorrarVideojuego(LoginRequiredMixin, DeleteView): 
 
     model = Videojuego
-    success_url = '/videojuegos/'
+    success_url = '/videojuegos/catalogo'
     template_name = 'layouts/borrar_videojuego.html'
-

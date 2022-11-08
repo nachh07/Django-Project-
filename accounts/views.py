@@ -77,6 +77,6 @@ def editar_perfil(request):
 
 
 class CambiarPassowrd(LoginRequiredMixin, PasswordChangeView):
-    template_name = 'accounts/cambiar_contrasenia.html'
+    template_name = 'accounts/cambiar_contraseña.html'
     success_url = '/accounts/perfil/'
     form_class = MiCambioDePassword

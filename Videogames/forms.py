@@ -41,14 +41,18 @@ class FormularioVideoJuego(forms.Form):
 
     fecha_alta = forms.DateField(
         label='Alta del videojuego',
+        required=False,
         widget=forms.TextInput(
-            attrs={'placeholder' : 'Tamaño del videojuego '}
+            attrs={'placeholder' : 'Introducir una fecha de alta '}
         )
     )
 
 class FomularioBusqueda(forms.Form):
     titulo = forms.CharField(
         max_length=50, 
-        required=False
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder' : 'Buscar '}
+        )
     )
 

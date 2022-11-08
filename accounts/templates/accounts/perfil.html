@@ -6,16 +6,19 @@ Perfil
 
 {% block content %}
 <ul>
-    <li>
+    {% if user.is_superuser %}
+        <h4>Usuario: {{request.user.username}}</h4>
+        <h4>Descripcion: Usuario Administrador </h4>
+    {% else %}
         <h4>Usuario: {{request.user.username}}</h4>
         <h4>Nombre: {{request.user.first_name}}</h4>
         <h4>Apellido: {{request.user.last_name}}</h4>
         <h4>Mail: {{request.user.email}}</h4>
         <h4>Descripcion: {{request.user.extensionusuario.descripcion}}</h4>
-    </li>
-    <a href="{% url 'editar_perfil' %}">Editar Perfil</a>
-    <br>
-    <a href="{% url 'cambiar_password' %}">Cambiar Contraseña</a>
-</ul>
+        <a href="{% url 'editar_perfil' %}">Editar Perfil</a>
+        <br>
+        <a href="{% url 'cambiar_password' %}">Cambiar Contraseña</a>
+    {% endif %}
 
 {% endblock %}
+
