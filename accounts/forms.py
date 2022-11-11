@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import forms
 from django import forms
+from django.core import validators
 from django.contrib.auth.forms import PasswordChangeForm
 
 class MiFormularioDeCreacion(UserCreationForm, forms.Form):
@@ -17,12 +18,16 @@ class MiFormularioDeCreacion(UserCreationForm, forms.Form):
             ),
         error_messages={
             "unique": "El usuario existe en la base de datos."
-        }
+        },
+        validators=[
+            validators.MinLengthValidator(2, 'Corto.'),
+            validators.MaxLengthValidator(31, 'Largo.')
+        ]
     )
 
     first_name = forms.CharField(
         max_length=30,
-        required=True,
+        required=False,
         label = 'Nombre',
         widget=forms.TextInput(
             attrs={
@@ -32,7 +37,7 @@ class MiFormularioDeCreacion(UserCreationForm, forms.Form):
         )
     last_name = forms.CharField(
         max_length=30,
-        required=True,
+        required=False,
         label = 'Apellido',
         widget=forms.TextInput(
             attrs={
@@ -64,12 +69,44 @@ class MiFormularioDeCreacion(UserCreationForm, forms.Form):
         help_texts = {key: '' for key in fields}
         
 class EditarPerfilFormulario(forms.Form):
-    username = forms.CharField(label='Usuario',required=False) 
-    first_name = forms.CharField(label='Nombre',required=False)
-    last_name = forms.CharField(label='Apellido',required=False)
-    email = forms.CharField(label='Email',required=False)
-    descripcion = forms.CharField(label='Descripcion',required=False)
-    avatar = forms.ImageField(required=False)
+    username = forms.CharField(
+        label='Usuario',
+        required=False,
+        validators=[
+            validators.MinLengthValidator(2, 'El nombre de usuario es demasiado corto.'),
+            validators.MaxLengthValidator(31, 'El nombre es demasiado Largo.')
+        ]
+    ) 
+    first_name = forms.CharField(
+        label='Nombre',
+        required=False,
+        validators=[
+            validators.MinLengthValidator(2, 'El nombre es demasiado corto.'),
+            validators.MaxLengthValidator(31, 'El nombre es demasiado Largo.')
+        ]
+    )
+    last_name = forms.CharField(
+        label='Apellido',
+        required=False,
+        validators=[
+            validators.MinLengthValidator(2, 'El nombre de usuario es demasiado corto.'),
+            validators.MaxLengthValidator(31, 'El nombre es demasiado Largo.')
+        ]
+    )
+    email = forms.CharField(
+        label='Email',
+        required=True
+    )
+    descripcion = forms.CharField(
+        label='Descripcion',
+        required=False,
+        validators=[
+            validators.MaxLengthValidator(100, 'descripción demasiado larga')
+        ]
+    )
+    avatar = forms.ImageField(
+        required=False
+    )
     
 
 class MiCambioDePassword(PasswordChangeForm):

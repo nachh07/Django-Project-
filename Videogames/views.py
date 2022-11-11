@@ -60,46 +60,45 @@ def registrar_videojuego(request):
 
     return render(request, 'layouts/registrar_videojuego.html', {'formulario' : formulario})
 
-@login_required
-def editar_videojuego(request, id): 
+# @login_required
+# def editar_videojuego(request, id): 
     
-    videojuego = Videojuego.objects.get(id=id)
+#     videojuego = Videojuego.objects.get(id=id)
 
-    if request.method == "POST":
-        formulario = FormularioVideoJuego(request.POST)
+#     if request.method == "POST":
+#         formulario = FormularioVideoJuego(request.POST)
 
-        if formulario.is_valid():
-            data = formulario.cleaned_data
+#         if formulario.is_valid():
+#             data = formulario.cleaned_data
+#             if not data['fecha_alta']:
+#                 fecha_alta = datetime.now()
+#             else: 
+#                 fecha_alta = data['fecha_alta']
 
-            videojuego = Videojuego(
-                titulo = data['titulo']
-                ,categoria = data['categoria']
-                ,precio = data['precio']
-                ,espacio_en_disco = data['espacio_en_disco']
-                ,fecha_alta = data['fecha_alta'] 
-            )
-            videojuego.save()
-            redirect('catalogo')
-        else:
-            return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario})
+#             videojuego = Videojuego(
+#                 titulo = data['titulo']
+#                 ,categoria = data['categoria']
+#                 ,precio = data['precio']
+#                 ,espacio_en_disco = data['espacio_en_disco']
+#                 ,fecha_alta = fecha_alta
+#             )
+            
+#             videojuego.save()
+#             redirect('ver_catalogo.html')
+#         else:
+#             return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario})
 
-    formulario = FormularioVideoJuego(
-        initial={
-            'titulo' : videojuego.titulo,
-            'categoria' : videojuego.categoria,
-            'precio' : videojuego.precio,
-            'espacio_en_disco' : videojuego.espacio_en_disco,
-            'fecha_alta' : videojuego.fecha_alta
-        }
-    ) 
-
-    return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario, 'juego' : videojuego})
-
-@login_required
-def borrar_videojuego(request, id): 
-    videojuego = Videojuego.objects.get(id=id)
-    videojuego.delete()
-    return redirect('catalogo')    
+#     formulario = FormularioVideoJuego(
+#         initial={
+#             'titulo' : videojuego.titulo,
+#             'categoria' : videojuego.categoria,
+#             'precio' : videojuego.precio,
+#             'espacio_en_disco' : videojuego.espacio_en_disco,
+#             'fecha_alta' : videojuego.fecha_alta
+#         }
+#     ) 
+    
+#     return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario, 'juego' : videojuego})
 
 
 class EditarVideojuego(LoginRequiredMixin, UpdateView):

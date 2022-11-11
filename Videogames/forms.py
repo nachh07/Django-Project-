@@ -6,6 +6,13 @@ from pyparsing import Regex
 from Videogames.models import Videojuego
 
 class FormularioVideoJuego(forms.Form):
+    CATEGORIAS = (
+      ("Shooter", 'Shooter'),
+      ("RPG", 'RPG'),
+      ("Competitivo", 'Competitivo'),
+      ("Carreras", 'Carreras'),
+      ("Terror", 'Terror'),
+      ("Survival", 'Survival'))
     titulo = forms.CharField(
         label = "Titulo",
         max_length=50,
@@ -19,17 +26,8 @@ class FormularioVideoJuego(forms.Form):
             validators.MinLengthValidator(2, 'El titulo es demasiado corto.')
         ]
     )
-    categoria = forms.CharField(
-        label = "Categoría",
-        max_length=30,
-        required=True,
-        widget=forms.TextInput(
-            attrs={'placeholder' : 'Categoría del videojuego '}
-        ),
-        validators=[
-            validators.MinLengthValidator(3, 'El nmbre de la categoría es demasiado corto. ')
-        ]
-    )
+    categoria = forms.ChoiceField(choices=CATEGORIAS)
+
     precio = forms.FloatField()
 
     espacio_en_disco = forms.IntegerField(
