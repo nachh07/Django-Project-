@@ -20,8 +20,8 @@ class MiFormularioDeCreacion(UserCreationForm, forms.Form):
             "unique": "El usuario existe en la base de datos."
         },
         validators=[
-            validators.MinLengthValidator(2, 'Corto.'),
-            validators.MaxLengthValidator(31, 'Largo.')
+            validators.MinLengthValidator(2, 'El nombre de usuario es demasiado corto.'),
+            validators.MaxLengthValidator(31, 'El nombre de usuario es demasiado largo.')
         ]
     )
 
