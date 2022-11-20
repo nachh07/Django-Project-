@@ -12,13 +12,4 @@ class Videojuego(models.Model):
 
     def __str__(self):
         return f'{self.titulo}'
-    
-class User(models.Model): 
 
-    nombre = models.TextField(max_length = 50)
-    mail =   models.EmailField()
-    localidad = models.TextField(max_length = 50)
-    fecha_alta = models.DateField()
-
-    def __str__(self):
-        return 'f{self.nombre}'
