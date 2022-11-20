@@ -1,4 +1,3 @@
-from attr import attr
 from django import forms
 from django.forms import TextInput
 from django.core import validators
