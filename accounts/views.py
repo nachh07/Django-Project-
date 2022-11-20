@@ -52,7 +52,8 @@ def editar_perfil(request):
             user.first_name = data_nueva['first_name']
             user.last_name = data_nueva['last_name']
             user.email = data_nueva['email']
-            user.extensionusuario.avatar = data_nueva['avatar']
+            if data_nueva['avatar'] is not None: 
+                user.extensionusuario.avatar = data_nueva['avatar']
             if len(data_nueva['descripcion']) > 0: 
                 user.extensionusuario.descripcion = data_nueva['descripcion']
             else:
