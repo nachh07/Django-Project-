@@ -104,9 +104,7 @@ class EditarPerfilFormulario(forms.Form):
             validators.MaxLengthValidator(100, 'descripción demasiado larga')
         ]
     )
-    avatar = forms.ImageField(
-        required=False
-    )
+    avatar = forms.ImageField(required=False, error_messages = {'invalid': "Solo imágenes"}, widget=forms.FileInput)
     
 
 class MiCambioDePassword(PasswordChangeForm):
