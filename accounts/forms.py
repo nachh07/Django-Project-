@@ -71,7 +71,7 @@ class MiFormularioDeCreacion(UserCreationForm, forms.Form):
 class EditarPerfilFormulario(forms.Form):
     username = forms.CharField(
         label='Usuario',
-        required=False,
+        required=True,
         validators=[
             validators.MinLengthValidator(2, 'El nombre de usuario es demasiado corto.'),
             validators.MaxLengthValidator(31, 'El nombre es demasiado Largo.')
