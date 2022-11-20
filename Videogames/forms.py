@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import TextInput
 from django.core import validators
-from pyparsing import Regex
 from Videogames.models import Videojuego
 
 class FormularioVideoJuego(forms.Form):
