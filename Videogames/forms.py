@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput
+from django.forms import TextInput, ModelForm
 from django.core import validators
 from Videogames.models import Videojuego
 
@@ -43,6 +43,14 @@ class FormularioVideoJuego(forms.Form):
         )
     )
 
+    descripcion = forms.CharField(
+        label='Descripción...',
+        max_length=1000,
+        required=False
+    )
+
+    portada = forms.ImageField(required=False, error_messages = {'invalid': "Solo imágenes"}, widget=forms.FileInput)
+    
 class FomularioBusqueda(forms.Form):
     titulo = forms.CharField(
         max_length=50, 
@@ -52,3 +60,7 @@ class FomularioBusqueda(forms.Form):
         )
     )
 
+class RichFieldForm(ModelForm):
+    class Meta: 
+        model = Videojuego
+        fields = ['cuerpo']

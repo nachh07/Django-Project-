@@ -10,9 +10,11 @@ Guardar videojuego
     <div class="box">
       <h2>Guardar videojuego</h2>
       
-        <form action ="" method = "POST">{% csrf_token %}
+        <form action=" " method = "POST" enctype="multipart/form-data">{% csrf_token %}
             {{formulario}}
-            <input type="submit" value="registrar">
+            {{form.media}}
+            {{form.as_p}}
+            <button type="submit">Registrar</button>
         </form>
     </div>
 </div>

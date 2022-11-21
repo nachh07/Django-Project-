@@ -22,17 +22,19 @@ Catálogo de videojuegos
                       <th>Precio</th>
                       <th>Peso</th>
                       <th>Ingreso</th>
+                      <th>Autor</th>
                     </tr>
                   </thead>
                   <tbody>
                   {% for j in juego %}
                     <tr>
-                      <td>{{j.id}} <a href="{% url 'editar_videojuego' j.id %}">Editar <a href="{% url 'borrar_videojuego' j.id %}"> Borrar</a> </td>
+                      <td>{{j.id}} <a href="{% url 'editar_videojuego' j.id %}">Editar <a href="{% url 'borrar_videojuego' j.id %}">Borrar <a href="{% url 'ver_detalles' j.id %}"> Detalles</td>
                       <td>{{j.titulo}}</td>
                       <td>{{j.categoria}}</td>
                       <td>{{j.precio}}</td>
                       <td>{{j.espacio_en_disco}}</td>
                       <td>{{j.fecha_alta}}</td>
+                      <td>{{j.autor}}</td>
                     </tr>
                   {% endfor %}
           {% else %}

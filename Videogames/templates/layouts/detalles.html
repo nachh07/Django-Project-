@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Detalle de videojuegos
+{% endblock title %}
+
+{% block content %}
+
+
+    <div class="content">
+        <div class="box">
+          {% for j in juego %}
+          <h3 style="text-align: center;">Titulo: {{j.titulo}}</h3> 
+          <br>
+          <h4 style="text-align: left;">descripcion: <h4> 
+          {% if cleaned_text %}
+            {{cleaned_text}}
+          {% else %}
+          <p>{{sin_descripcion}}</p>
+          {% endif %}
+          <h4>Portada</h4><img src="{{j.portada}}">
+          {% endfor %}
+        </div>
+    </div>
+    
+{% endblock %}
