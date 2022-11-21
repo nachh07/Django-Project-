@@ -42,7 +42,8 @@ class FormularioVideoJuego(forms.Form):
             attrs={'placeholder' : 'Introducir una fecha de alta '}
         )
     )
-    
+    portada = forms.ImageField(required=False, error_messages = {'invalid': "Solo imágenes"}, widget=forms.FileInput)
+
 class FomularioBusqueda(forms.Form):
     titulo = forms.CharField(
         max_length=50, 

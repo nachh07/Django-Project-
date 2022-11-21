@@ -28,20 +28,25 @@ def ver_catalogo(request):
 def registrar_videojuego(request):
     if request.method == "POST":  
         # Instancias de los dos formularios para adaptar el RichText a una vista que no está basada en clase.     
-        formulario = FormularioVideoJuego(request.POST)      
+        formulario = FormularioVideoJuego(request.POST, request.FILES)      
         formtext = RichFieldForm(request.POST)  
 
         if formtext.is_valid():
             text_data = formtext.cleaned_data
         else: 
             text_data = 'Error al ingresar datos'
-        
+
         if formulario.is_valid():
             data = formulario.cleaned_data
             if not data['fecha_alta']:
                 fecha_alta = datetime.now()
             else: 
                 fecha_alta = data['fecha_alta']
+            if data['portada'] is not None:
+                imagen = data['portada']
+            else: 
+                imagen = data['portada']
+            
             videojuego = Videojuego(
                 titulo = data['titulo']
                 ,categoria = data['categoria']
@@ -50,10 +55,10 @@ def registrar_videojuego(request):
                 ,fecha_alta = fecha_alta
                 ,autor = request.user
                 ,cuerpo = text_data
+                ,portada = imagen
             )
             videojuego.save()
             return redirect('catalogo')
-        
         else:
             return render(request, 'layouts/registrar_videojuego.html', {'formulario' : formulario})
     formulario = FormularioVideoJuego()
