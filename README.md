@@ -22,6 +22,12 @@
 
 7 - Registrar videojuegos.
 
-8 - Se puede ver el catálogo con los videojuegos creados o buscar alguno ya creado.
+7 - Editar Videojuegos
 
-9 - En el apartado Acerca de Nosotros podrás saber más sobre los integrantes del equipo.
+7.1 Se puede editar un videojuego pudiendo modificar sus atributos de texto como de imagen.
+
+8 - Se puede visualizar el apartado de detalles del videojuego pudiendo ver su titulo, descripción y su imagen (si tiene).
+
+9 - Se puede ver el catálogo con los videojuegos creados o buscar alguno ya creado.
+
+10 - En el apartado Acerca de Nosotros podrás saber más sobre los integrantes del equipo.
