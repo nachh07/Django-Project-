@@ -1,9 +1,8 @@
 from webbrowser import get
 from django.shortcuts import render, redirect
 from Videogames.models import Videojuego
-from Videogames.forms import FormularioVideoJuego, FomularioBusqueda, RichFieldForm
+from Videogames.forms import FormularioVideoJuego, FomularioBusqueda, RichFieldForm, PostearImagen
 from datetime import datetime
-from django.views.generic.list import ListView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -71,75 +70,21 @@ def ver_detalles(request, id):
         texto = "Sin descripción"
     else: 
         if limpiar_texto:
-            texto = limpiar_texto(texto).replace("&nbsp;", " ")
+            texto = limpiar_texto(texto).replace("&nbsp;", " ")            
             texto_limpio = texto.replace('{', "").replace("}", " ").replace("cuerpo"," ").replace(":"," ").replace("'", " ")
             return render(request, 'layouts/detalles.html', {'juego' : videojuego, 'cleaned_text' : texto_limpio, 'sin_descripcion' : texto})
-            
+       
+
     return render(request, 'layouts/detalles.html', {'juego' : videojuego, 'sin_descripcion' : texto})
 
-@login_required
-def editar_videojuego(request, id):
-    videojuego = Videojuego.objects.filter(id = id).values()
-    if request.method == "POST":       
-
-        formulario = FormularioVideoJuego(request.POST)   
-        formtext = RichFieldForm(request.POST)  
-        if formtext.is_valid():
-            text_data = formtext.cleaned_data
-        else: 
-            text_data = 'Error al ingresar datos'     
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            if not data['fecha_alta']:
-                fecha_alta = datetime.now()
-            else: 
-                fecha_alta = data['fecha_alta']
-
-            if data['portada'] is not None: 
-                imagen = data['portada']
-                           
-                videojuego = Videojuego(
-                    titulo = data['titulo']
-                    ,categoria = data['categoria']
-                    ,precio = data['precio']
-                    ,espacio_en_disco = data['espacio_en_disco']
-                    ,fecha_alta = fecha_alta
-                    ,portada = imagen
-                    ,cuerpo = text_data
-                )
-
-                videojuego.save()
-            
-            else: 
-                videojuego = Videojuego(
-                    titulo = data['titulo']
-                    ,categoria = data['categoria']
-                    ,precio = data['precio']
-                    ,espacio_en_disco = data['espacio_en_disco']
-                    ,fecha_alta = fecha_alta
-                    ,cuerpo = text_data
-                )
-            
-            
-                videojuego.save()
-
-            return redirect('catalogo')
-
-        else:
-            return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario}) 
-    formulario = FormularioVideoJuego()
-    return render(request, 'layouts/editar_videojuego.html', {'formulario' : formulario, 'juego' : videojuego, 'form' : RichFieldForm()})
-
-
-
-# class EditarVideojuego(LoginRequiredMixin, UpdateView):
-#     model = Videojuego
-#     success_url = '/videojuegos/catalogo'
-#     template_name = 'layouts/editar_videojuego.html'
-#     fields = ['titulo', 'categoria', 'precio', 'espacio_en_disco', 'fecha_alta', 'portada', 'cuerpo']
 
 class BorrarVideojuego(LoginRequiredMixin, DeleteView): 
     model = Videojuego
     success_url = '/videojuegos/catalogo'
     template_name = 'layouts/borrar_videojuego.html'
 
+class EditarVideojuego(LoginRequiredMixin, UpdateView):  
+    model = Videojuego
+    form_class = PostearImagen
+    template_name = "layouts/editar_videojuego.html"
+    success_url =  '/videojuegos/catalogo'

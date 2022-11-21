@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block title %}
-Editar
+Editar Videojuego
 {% endblock title %}
 
 {% block content %}
@@ -9,12 +9,10 @@ Editar
 <div class="content">
     <div class="box">
       <h2>Editar videojuego</h2>
-        {% for j in juego %}
-        <form action ={% url 'editar_videojuego' j.id %} method = "POST">{% csrf_token %}
-        {% endfor %}
-            {{formulario}}
-            {{form.media}}
+        
+        <form action ={% url 'editar_videojuego' object.id %} method = "POST" enctype="multipart/form-data">{% csrf_token %}
             {{form.as_p}}
+            {{form.media}}
             <input type="submit" value="Editar">
         </form>
     </div>

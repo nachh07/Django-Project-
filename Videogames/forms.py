@@ -42,14 +42,6 @@ class FormularioVideoJuego(forms.Form):
             attrs={'placeholder' : 'Introducir una fecha de alta '}
         )
     )
-
-    descripcion = forms.CharField(
-        label='Descripción...',
-        max_length=1000,
-        required=False
-    )
-
-    portada = forms.ImageField(required=False, error_messages = {'invalid': "Solo imágenes"}, widget=forms.FileInput)
     
 class FomularioBusqueda(forms.Form):
     titulo = forms.CharField(
@@ -64,3 +56,10 @@ class RichFieldForm(ModelForm):
     class Meta: 
         model = Videojuego
         fields = ['cuerpo']
+
+
+class PostearImagen(forms.ModelForm):
+
+    class Meta:
+        model = Videojuego
+        fields = ['titulo', 'categoria', 'precio', 'espacio_en_disco', 'fecha_alta', 'portada', 'cuerpo']
