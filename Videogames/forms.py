@@ -59,8 +59,14 @@ class RichFieldForm(ModelForm):
         fields = ['cuerpo']
 
 
-class PostearImagen(forms.ModelForm):
+class EditarVideojuego(forms.ModelForm):
 
     class Meta:
         model = Videojuego
         fields = ['titulo', 'categoria', 'precio', 'espacio_en_disco', 'fecha_alta', 'portada', 'cuerpo']
+
+class PostearImagen(forms.ModelForm):
+
+    class Meta:
+        model = Videojuego
+        fields = ['portada']

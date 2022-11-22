@@ -1,12 +1,12 @@
 from webbrowser import get
 from django.shortcuts import render, redirect
 from Videogames.models import Videojuego
-from Videogames.forms import FormularioVideoJuego, FomularioBusqueda, RichFieldForm, PostearImagen
+from Videogames.forms import FormularioVideoJuego, FomularioBusqueda, RichFieldForm, PostearImagen, EditarVideojuego
 from datetime import datetime
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-import re
 
 def index(request): 
     return render(request, 'layouts/index.html', {'title' : 'inicio'})
@@ -64,24 +64,6 @@ def registrar_videojuego(request):
     formulario = FormularioVideoJuego()
     return render(request, 'layouts/registrar_videojuego.html', {'formulario' : formulario, 'form' : RichFieldForm()})
 
-def ver_detalles(request, id): 
-
-    # Hace una limpieza de caracteres html si hubo descricpción de texto enriquecido
-    videojuego = Videojuego.objects.filter(id = id).values()
-    texto = videojuego[0]['cuerpo']
-    clean = re.compile('<.*?>')
-    limpiar_texto = lambda texto: re.sub(clean, '', texto) if len(texto) > 0 else False 
-    if texto is None:
-        texto = "Sin descripción"
-    else: 
-        if limpiar_texto:
-            texto = limpiar_texto(texto).replace("&nbsp;", " ")            
-            texto_limpio = texto.replace('{', "").replace("}", " ").replace("cuerpo"," ").replace(":"," ").replace("'", " ")
-            return render(request, 'layouts/detalles.html', {'juego' : videojuego, 'cleaned_text' : texto_limpio, 'sin_descripcion' : texto})
-       
-
-    return render(request, 'layouts/detalles.html', {'juego' : videojuego, 'sin_descripcion' : texto})
-
 
 class BorrarVideojuego(LoginRequiredMixin, DeleteView): 
     model = Videojuego
@@ -90,6 +72,16 @@ class BorrarVideojuego(LoginRequiredMixin, DeleteView):
 
 class EditarVideojuego(LoginRequiredMixin, UpdateView):  
     model = Videojuego
-    form_class = PostearImagen
+    form_class = EditarVideojuego
     template_name = "layouts/editar_videojuego.html"
+    success_url =  '/videojuegos/catalogo'
+
+class VerDetalles(DetailView): 
+    model = Videojuego
+    template_name = "layouts/detalles.html"
+
+class AgregarImagen(LoginRequiredMixin, UpdateView):  
+    model = Videojuego
+    form_class = PostearImagen
+    template_name = "layouts/agregar_imagen.html"
     success_url =  '/videojuegos/catalogo'

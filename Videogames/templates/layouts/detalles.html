@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block title %}
 Detalle de videojuegos
 {% endblock title %}
@@ -9,17 +9,21 @@ Detalle de videojuegos
 
     <div class="content">
         <div class="box">
-          {% for j in juego %}
-          <h3 style="text-align: center;">Titulo: {{j.titulo}}</h3> 
-          <br>
-          <h4 style="text-align: left;">descripcion: <h4> 
-          {% if cleaned_text %}
-            {{cleaned_text}}
-          {% else %}
-          <p>{{sin_descripcion}}</p>
-          {% endif %}
-          <h4>Portada</h4><img src="{{j.portada.url}}">
-          {% endfor %}
+            <h2 style="padding: inherit;">{{videojuego.titulo}}</h2>
+            {% if not videojuego.portada %}
+              <p style="text-align: center;">Sin imagen de portada.
+                <a style="color: green" href={% url 'agregar_imagen' videojuego.id %}>  ¿Desea añadir una imagen? </a>
+              </p>
+            {% else %}
+            <img style="width: 250px;text-align: center;margin-left: 20%;" src={{videojuego.portada.url}} alt="">
+            {% endif %}
+            <h4>Categoria</h4>{{videojuego.categoria}}
+            <h4>Descripcion</h4>
+            {% if videojuego.cuerpo %}
+              {{videojuego.cuerpo}}
+            {% else %}
+            <p>No hay Descripcion acerca de este videojuego.</p>
+            {% endif %}
         </div>
     </div>
     

@@ -11,8 +11,9 @@ urlpatterns = [
     path('videojuegos/catalogo', views.ver_catalogo, name = 'catalogo'),
     path('videojuegos/registrar', views.registrar_videojuego, name = 'registrar-videojuego'),
     path('videojuegos/editar/<int:pk>', views.EditarVideojuego.as_view(), name = 'editar_videojuego'),
+    path('videojuegos/agregar-imagen/<int:pk>', views.AgregarImagen.as_view(), name = 'agregar_imagen'),
     path('videojuegos/borrar/<int:pk>', views.BorrarVideojuego.as_view(), name = 'borrar_videojuego'),
-    path('videojuegos/detalles/<int:id>', views.ver_detalles, name = 'ver_detalles')
+    path('videojuegos/detalles/<int:pk>', views.VerDetalles.as_view(), name = 'ver_detalles')
 
 ]
 

@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Editar Imagen
+{% endblock title %}
+
+{% block content %}
+
+<div class="content">
+    <div class="box">
+      <h2>Editar Imagen</h2>
+        
+        <form action ={% url 'agregar_imagen' object.id %} method = "POST" enctype="multipart/form-data">{% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Editar">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

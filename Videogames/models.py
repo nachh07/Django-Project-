@@ -15,4 +15,4 @@ class Videojuego(models.Model):
     autor = models.TextField(max_length = 50)
 
     def __str__(self):
-        return f'{self.titulo}'
+        return f'Titulo: {self.titulo} - Categoria: {self.categoria} - Fecha: {self.cuerpo} - Fecha: {self.portada}'

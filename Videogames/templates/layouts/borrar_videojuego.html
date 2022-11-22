@@ -11,7 +11,7 @@ Editar
       <h2>Editar videojuego</h2>
       
         <form action ={% url 'borrar_videojuego' object.id %} method = "POST">{% csrf_token %}
-            <p> ¿Desea eliminar el objeto: {{object}}</p>
+            <p> ¿Desea eliminar el objeto: {{videojuego.titulo}}</p>
             <input class="btn btn-danger" type="submit" value="Confirmar">
             <a href="{% url 'catalogo' %}" class="btn btn-success">Volver atrás</a>
          </form>
